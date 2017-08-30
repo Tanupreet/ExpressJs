@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
+let sinon= require('sinon')
 mongoose.connect('mongodb://localhost/bookstore')
 const Book = require('../models/book')
 
@@ -44,12 +45,16 @@ router.delete('/del/:id', function(req, res, next) {
     })
 })
 
+//----------------------------------------------Test Cases----------------------------------------//
+
+
 
 router.post('/add/:a/:b',function(req,res) {
         let x=parseFloat(req.params.a)
         let y=parseFloat(req.params.b)
         let c=x+y
         res.send(c.toString())
+
 
     })
 
@@ -58,6 +63,17 @@ router.post('/mul/:c/:d',function(req,res){
     let f=parseFloat(req.params.d)
     let g=e*f
     res.send(g.toString())
+})
+
+
+router.get('/find', function(req, res) {
+    Book.find((err, emp) => {
+            if (err)
+                res.send("Error")
+            else
+                res.json(emp)
+
+        })
 })
 
 module.exports = router

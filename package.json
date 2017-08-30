@@ -7,9 +7,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "express": "*",
     "body-parser": "*",
-    "mongoose": "*"
+    "express": "*",
+    "mongoose": "*",
+    "sinon": "^3.2.1"
   },
   "author": "Tanupreet Singh",
   "license": "ISC",
