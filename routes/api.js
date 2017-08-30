@@ -66,14 +66,62 @@ router.post('/mul/:c/:d',function(req,res){
 })
 
 
+router.post('/sub/:a/:b',function(req,res){
+    let x=parseFloat(req.params.a)
+    let y=parseFloat(req.params.b)
+    let c=x-y
+    res.send(c.toString())
+})
+
+
+router.post('/div/:a/:b',function(req,res){
+    let x=parseFloat(req.params.a)
+    let y=parseFloat(req.params.b)
+    let c=x/y
+    res.send(c.toString())
+})
+
 router.get('/find', function(req, res) {
     Book.find((err, emp) => {
             if (err)
                 res.send("Error")
             else
                 res.json(emp)
+            //console.log(emp)
 
         })
+})
+
+    router.post('/add', function(req, res) {
+      let str=new Book()
+       str.name=req.body.name
+    str.save({},function(err,data) {
+        if(err){
+            res.send('error')
+        }else{
+
+
+        res.json(data)
+   } })
+
+})
+
+
+router.delete('/delete/:id', function(req, res) {
+    let str=new Book()
+   /* str.name=req.body.name*/
+   //console.log(req.params.id)
+    str.remove({id:req.params.id},function(data,err) {
+
+          if(err) throw err
+            res.json(data)
+        console.log(data)
+
+   
+
+        
+    })
+
 })
 
 module.exports = router
