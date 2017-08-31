@@ -9,7 +9,7 @@ var api= require('./routes/api')
 
 
 
-app.use('/api',api);
+app.use('/api',(api));
 
 
 /*app.get('/',function(req,res){

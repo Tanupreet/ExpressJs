@@ -108,19 +108,33 @@ router.get('/find', function(req, res) {
 
 
 router.delete('/delete/:id', function(req, res) {
-    let str=new Book()
-   /* str.name=req.body.name*/
-   //console.log(req.params.id)
-    str.remove({id:req.params.id},function(data,err) {
+   // let str=new Book()
+   
+    Book.remove({id:req.params.id},function(err, data) {
+if(err){
+    throw err
 
-          if(err) throw err
+}else{
+         
             res.json(data)
-        console.log(data)
+        }
+        })
+})
+      //  console.log(data)
 
    
 
-        
-    })
+router.put('/upd/:id', function(req, res) {
+    Book.update({ id: req.params.id }, {$set:{name:req.body.name}}, function(err,data) {
+       if(err){
+            throw err
+
+        }else {
+            res.json(data)
+        }
+   
+})
+   
 
 })
 

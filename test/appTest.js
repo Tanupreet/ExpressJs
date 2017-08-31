@@ -8,6 +8,7 @@ const Book = require('../models/book')
 let modelStub = sinon.stub(Book, 'find')
 let modelStubPost = sinon.stub(Book.prototype, 'save')
 let modelStubDel = sinon.stub(Book, 'remove')
+let modelStubUp = sinon.stub(Book, 'update')
 var url = supertest("http://localhost:3000")
 const app = require('../app')
 
@@ -90,20 +91,40 @@ describe("Unit Testing", function(err) {
 
 
   it("delete name", function(done) {
-      let st={name: 'tanu'}
-        modelStubDel.withArgs({name: 'tanu'})
-        .yields(null, { id: 1 })
-        url
-            .delete('/api/delete/tanu')
-        
+     // let st={name: 'tanu'}
+     
+        modelStubDel.withArgs({'id': "1"})
+        .yields(null, { 'name' : 'tanu' })
+     url
+            .delete('/api/delete/1')
+         
             .end(function(err, res) {
                 if (err) throw err
-             // console.log(res.body)
-                expect({ id: 1 }).to.deep.equal(res.body);
-                
+             // /console.log(res.body)
+                expect('tanu').to.be.equal(res.body.name); 
+                done()
             })
-            done()
+            
     })
+
+
+it("Update name", function(done) {
+     
+        modelStubUp.withArgs({'id': "11" }, {$set: {name:'prakhar'}})
+        .yields(null, { name : 'tanu' })
+     url
+            .put('/api/upd/11')
+            .send({name:'prakhar'})
+            .end(function(err, res) {
+                if (err) throw err
+           //  console.log(res.body)
+                expect('tanu').to.be.equal(res.body.name); 
+                done()
+            })
+            
+    })
+
+
 
 })
 
